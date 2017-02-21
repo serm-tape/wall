@@ -1,17 +1,20 @@
 import React, {Component} from 'react'
-import Router, {Route, IndexRoute} from 'react-router'
+import {Router, Route, IndexRoute, browserHistory} from 'react-router'
 import {render} from 'react-dom'
 
 import {App, Hello} from './component'
 
-const Root = ()=>{
-    return (
-        <Router>
-            <Route path='/' component={App}>
-                <Route path='hello' component={Hello} />
-            </Route>
-        </Router>
-    )
+class Root extends Component{
+    render(){
+        return (
+            <Router history={browserHistory}>
+                <Route path='/' component={App} >
+                    <IndexRoute component={Hello} />
+                    <Route path='hello' component={Hello} />
+                </Route>
+            </Router>
+        )
+    }
 }
 
 render(<Root />, document.getElementById('app'))

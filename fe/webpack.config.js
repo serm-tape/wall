@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack');
 
 module.exports = {
     entry: './fe/index.js',
@@ -14,5 +15,14 @@ module.exports = {
                 loader: 'babel-loader?presets[]=es2015',
             }
         ]
+    },
+    plugins: [
+    	new webpack.HotModuleReplacementPlugin(),
+	],
+    devServer:{
+        publicPath: '/built/',
+        contentBase: [__dirname, path.join(__dirname, 'public')],
+        compress: true,
+        port: 8080,
     }
 }
