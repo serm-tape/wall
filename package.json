@@ -1,0 +1,15 @@
+{
+  "name": "wall",
+  "version": "1.0.0",
+  "description": "paint anything to anyone wall",
+  "main": "index.js",
+  "repository": "https://github.com/serm-tape/wall.git",
+  "author": "serm-tape <serm.thm@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-router": "^3.0.2",
+    "webpack": "^2.2.1"
+  }
+}
