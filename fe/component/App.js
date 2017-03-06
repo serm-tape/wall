@@ -1,10 +1,12 @@
 import React, {Component} from 'react'
+import Header from './Header'
+import Footer from './Footer'
 
 class App extends Component{
 
     constructor(props){
         super(props)
-        state = {
+        this.state = {
             fbSdkLoaded: false,
             fbId: null,
             fbToken: null,
@@ -26,16 +28,23 @@ class App extends Component{
 
             //if not login do login, then get id wheter login or not
             FB.getLoginStatus( resp => {
-                Fb.login( loginResp => {
-                    this.setState({fbId:loginResp.auth_response.userID, fbToken:loginResp.auth_response.token})
-                })
+                console.log(resp)
+                switch (resp.status){
+                    case 'connected':
+                        this.setState({fbId:resp.auth_response.userID, fbToken:resp.auth_response.token}); break;
+                    default:
+                        Fb.login( loginResp => {
+                            this.setState({fbId:loginResp.auth_response.userID, fbToken:loginResp.auth_response.token})
+                        })
+                        break;
+                }
             })
         }
 
         const loadAsync = (d, id) => {
-            let js, fjs = d.getElmentsByTagName('script')[0]
+            let js, fjs = d.getElementsByTagName('script')[0]
             if (d.getElementById(id)){return;}
-            js = d.CreateElement(s)
+            js = d.createElement('script')
             js.id = id
             js.src = '//connect.facebook.net/en_US/sdk.js'
             fjs.parentNode.insertBefore(js, fjs)
@@ -45,10 +54,12 @@ class App extends Component{
 
     render(){
         let content = null
-        if (!fbSdkLoaded){
-            //content = (<p>Initializing</p>)
-        }else if(!fbId){
-            //content = (<FBLoginButton />)
+        if (!this.state.fbSdkLoaded){
+            content = (<p>Initializing</p>)
+        }else if(!this.state.fbId){
+            content = (
+                <button className='btn btn-primary' onClick={loginWithFacebook.bind(this)}> Login with facebook </button> 
+            )
         }else{
             //content = this.props.children
         }
@@ -60,6 +71,12 @@ class App extends Component{
             </div>
         )
     }
+}
+
+function loginWithFacebook(){
+    Fb.login( loginResp => {
+        this.setState({fbId:loginResp.auth_response.userID, fbToken:loginResp.auth_response.token})
+    })
 }
 
 export default App

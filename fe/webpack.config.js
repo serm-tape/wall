@@ -7,6 +7,7 @@ module.exports = {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'fe', 'built')
     },
+    devtool: 'source-map',
     module:{
         loaders:[
             {
