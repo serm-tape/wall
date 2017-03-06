@@ -61,7 +61,7 @@ class App extends Component{
                 <button className='btn btn-primary' onClick={loginWithFacebook.bind(this)}> Login with facebook </button> 
             )
         }else{
-            //content = this.props.children
+            content = this.props.children
         }
         return (
             <div>
